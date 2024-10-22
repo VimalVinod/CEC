@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <ctype.h>
 #include <string.h>
 
 #define MAX 100
@@ -7,71 +6,67 @@
 char stack[MAX];
 int top = -1;
 
-void push(char c) {
+void push(char x) {
     if (top == MAX - 1) {
-        printf("Stack Overflow\n");
         return;
     }
-    stack[++top] = c;
+    stack[++top] = x;
 }
 
 char pop() {
     if (top == -1) {
-        printf("Stack Underflow\n");
         return -1;
     }
     return stack[top--];
 }
 
-int priority(char c) {
-    if (c == '+' || c == '-') {
-        return 0;
-    } else if (c == '*' || c == '/') {
+int precedence(char x) {
+    if (x == '+' || x == '-')
         return 1;
-    } else if (c == '^') {
+    if (x == '*' || x == '/')
         return 2;
-    } else {
-        return -1;
-    }
-}
-
-int main() {
-    char exp[100];
-    printf("Enter the expression: ");
-    scanf("%s", exp);
-    printf("Postfix expression \t:");
-    int i = 0;
-
-    while (exp[i] != '\0') {
-        if ((exp[i] >= 'A' && exp[i] <= 'Z') || (exp[i] >= 'a' && exp[i] <= 'z')) {
-            printf("%c", exp[i]);
-        } else if (exp[i] == '(') {
-            push(exp[i]);
-        } else if (exp[i] == ')') {
-            while (stack[top] != '(') {
-                printf("%c", pop());
-            }
-            top--; 
-        } else if (priority(exp[i]) > priority(stack[top])) {
-            push(exp[i]);
-        } else if (priority(exp[i]) <= priority(stack[top])) {
-            if (priority(exp[i]) == priority(stack[top]) && exp[i] == '^') {
-                push(exp[i]);
-            } else {
-            
-                while (top != -1 && priority(exp[i]) <= priority(stack[top])) {
-                    printf("%c", pop());
-                }
-                push(exp[i]);
-            }
-        }
-        i++;
-    }
-
-    while (top != -1) {
-        printf("%c", pop());
-    }
-	printf("\n");
+    if (x == '^')
+        return 3;
     return 0;
 }
 
+int isOperand(char x) {
+    return (x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z') || (x >= '0' && x <= '9');
+}
+
+void infixToPostfix(char *infix) {
+    int i, j = 0;
+    char postfix[MAX], x;
+
+    for (i = 0; infix[i] != '\0'; i++) {
+        if (isOperand(infix[i])) {
+            postfix[j++] = infix[i];
+        } else if (infix[i] == '(') {
+            push(infix[i]);
+        } else if (infix[i] == ')') {
+            while ((x = pop()) != '(') {
+                postfix[j++] = x;
+            }
+        } else {
+            while (top != -1 && precedence(stack[top]) >= precedence(infix[i])) {
+                postfix[j++] = pop();
+            }
+            push(infix[i]);
+        }
+    }
+
+    while (top != -1) {
+        postfix[j++] = pop();
+    }
+
+    postfix[j] = '\0';
+    printf("Postfix Expression: %s\n", postfix);
+}
+
+int main() {
+    char infix[MAX];
+    printf("Enter infix expression: ");
+    scanf("%s", infix);
+    infixToPostfix(infix);
+    return 0;
+}
