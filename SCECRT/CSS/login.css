@@ -1,0 +1,109 @@
+/* General Styling for Login Page */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #56CCF2, #2F80ED);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Login Page Container */
+.login-page {
+    width: 100%;
+    max-width: 450px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: fadeIn 1.2s ease-out;
+}
+
+/* Header Styling */
+header h1 {
+    font-size: 2.5rem;
+    color: #2F80ED;
+    margin-bottom: 20px;
+}
+
+header h1 .highlight {
+    color: #FFD700;
+}
+
+/* Login Form Styling */
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin: 15px 0;
+    text-align: left;
+}
+
+label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="email"]:focus, input[type="password"]:focus {
+    border-color: #2F80ED;
+    outline: none;
+}
+
+/* Login Button Styling */
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #2F80ED;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #56CCF2;
+    transform: scale(1.05);
+}
+
+/* Register Link Styling */
+.register-link {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #2F80ED;
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
