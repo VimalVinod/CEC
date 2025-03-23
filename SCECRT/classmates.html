@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classmates - S4C</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #333;
+        }
+        header {
+            background: #007bff;
+            color: white;
+            padding: 20px;
+            font-size: 26px;
+            font-weight: 600;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: scale(1.07);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .card h3 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .card p {
+            font-size: 14px;
+            color: #555;
+            margin: 5px 0;
+        }
+        .home-btn {
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: background 0.3s ease-in-out;
+        }
+        .home-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <header>Classmates</header>
+    <div class="container" id="classmatesContainer"></div>
+    <button class="home-btn" onclick="goHome()">🏠 Back to Home</button>
+
+    <script>
+       function loadClassmates() {
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+
+    // Check other storage keys if `students` is empty
+    if (students.length === 0) {
+        const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+        const userProfileData = JSON.parse(localStorage.getItem("userProfileData"));
+
+        if (userProfile) {
+            students.push(userProfile);
+        }
+        if (userProfileData) {
+            students.push(userProfileData);
+        }
+    }
+
+    console.log("Final student data:", students); // Debugging log
+
+    const container = document.getElementById("classmatesContainer");
+    container.innerHTML = "";
+
+    if (students.length === 0) {
+        container.innerHTML = "<p>No classmates registered yet.</p>";
+        return;
+    }
+
+    students.forEach(student => {
+        if (!student.name || !student.email) return; // Skip invalid entries
+
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+            <h3>${student.name}</h3>
+            <p><strong>Email:</strong> ${student.email}</p>
+            <p><strong>Date of Birth:</strong> ${student.dob || "Not provided"}</p>
+            <p><strong>Bio:</strong> ${student.bio || "Not provided"}</p>
+            <p><strong>Achievements:</strong> ${student.achievements || "None"}</p>
+           <p><strong>Positions:</strong> 
+    ${student.positions.length > 0 
+        ? student.positions.map(position => `${position.title}: ${position.description}`).join(", ") 
+        : "None"}
+</p>
+
+        `;
+        container.appendChild(card);
+    });
+}
+function goHome() {
+    window.location.href = "index.html"; // Change "index.html" to your actual home page URL
+}
+
+// Update classmates when localStorage changes
+window.addEventListener("storage", (event) => {
+    if (event.key === "students" || event.key === "userProfile" || event.key === "userProfileData") {
+        console.log("Storage updated, reloading classmates...");
+        loadClassmates();
+    }
+});
+
+window.onload = loadClassmates;
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,275 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #f8f8f8;
+    margin: 0;
+    padding: 0;
+}
+
+/* Pin Entry Styles */
+#pin-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #000;
+}
+
+.pin-box {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.add-memory {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.add-memory input,
+.add-memory textarea {
+    width: 90%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ff5722;
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.add-memory input:focus,
+.add-memory textarea:focus {
+    border-color: #d84315;
+    box-shadow: 0 0 8px rgba(216, 67, 21, 0.5);
+}
+#sticky-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+.delete-btn {
+    background: #d84315;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+    background: #b71c1c;
+}
+.sticky-note {
+    position: absolute;
+    cursor: grab;
+}
+.sticky-note {
+    width: 200px;
+    min-height: 130px;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    border-radius: 10px;
+    position: absolute;
+    cursor: grab;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.sticky-note:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+/* Signature Style */
+.signature {
+    font-size: 12px;
+    font-style: italic;
+    color: #555;
+    text-align: right;
+    margin-top: 10px;
+}
+
+/* Delete Button */
+.delete-btn {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 4px;
+    float: right;
+}
+
+.delete-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.sticky-note:active {
+    cursor: grabbing;
+}
+
+.sticky-note {
+    position: relative;
+}
+
+#pin-input {
+    font-size: 22px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 120px;
+    text-align: center;
+    border: 2px solid #ff5722;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#pin-input:focus {
+    border-color: #d84315;
+    box-shadow: 0 0 10px rgba(216, 67, 21, 0.5);
+}
+
+button {
+    background: #ff5722;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #d84315;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(216, 67, 21, 0.5);
+}
+
+/* Page Transition */
+@keyframes openBook {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#content {
+    animation: openBook 0.8s ease-in-out;
+}
+
+/* Header */
+header {
+    background: linear-gradient(45deg, #ff9800, #ff5722);
+    padding: 18px;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 1px;
+}
+/* Sticky Notes */
+.sticky-note {
+    position: absolute;
+    width: 200px;
+    min-height: 100px;
+    max-height: 250px; /* Prevents overflow */
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    word-wrap: break-word;
+    font-size: 14px;
+    color: #333;
+    overflow: hidden; /* Ensures content doesn’t overflow */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Ensure text wraps properly */
+.sticky-note p {
+    margin: 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Delete Button */
+.delete-btn {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    float: right;
+}
+
+/* Memory Wall */
+.memory-wall {
+    width: 100%;
+    min-height: 500px;
+    background: url('wall-texture.jpg') repeat;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+/* Sticky Notes */
+.sticky-note {
+    width: 200px;
+    min-height: 130px;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    border-radius: 10px;
+    position: absolute;
+    cursor: grab;
+    background: #FFEB3B;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.sticky-note:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Floating Hearts Animation */
+.heart {
+    position: fixed;
+    bottom: -10px;
+    font-size: 22px;
+    opacity: 0.9;
+    animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-50vh) scale(1.2);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-100vh) scale(0.5);
+        opacity: 0;
+    }
+}

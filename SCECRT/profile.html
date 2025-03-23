@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+
+    <style>
+       /* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: #007bff;
+    color: white;
+    padding: 20px;
+    font-size: 26px;
+    font-weight: 600;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Container */
+.container {
+    background: white;
+    width: 70%;
+    margin: 30px auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Profile Info */
+.profile-info {
+    text-align: center;
+    padding: 20px;
+}
+
+.profile-info h2 {
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.profile-info p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Section Titles */
+h3 {
+    color: #007bff;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 5px;
+    font-weight: 600;
+}
+
+/* Projects & Achievements Cards */
+.projects-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.project-card {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 250px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.project-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Buttons */
+button {
+    padding: 12px 18px;
+    font-size: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-btn {
+    background: #28a745;
+    color: white;
+    font-weight: 600;
+}
+
+.add-btn:hover {
+    background: #218838;
+}
+
+.edit-btn {
+    background: #ffc107;
+    color: black;
+    font-weight: 600;
+}
+
+.edit-btn:hover {
+    background: #e0a800;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+    font-weight: 600;
+}
+
+.delete-btn:hover {
+    background: #c82333;
+}
+
+.home-btn {
+    background: #007bff;
+    color: white;
+    font-weight: 600;
+}
+
+.home-btn:hover {
+    background: #0056b3;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>My Portfolio</header>
+
+    <div class="container">
+        <div class="profile-info">
+            <h2 id="profileName">Your Name</h2>
+            <p><strong>Email:</strong> <span id="emailText">Not provided</span></p>
+            <p><strong>Date of Birth:</strong> <span id="dobText">Not provided</span></p>
+            <p><strong>Bio:</strong> <span id="bioText">Not provided</span></p>
+            <p><strong>Skills to Teach:</strong> <span id="teachText">Not provided</span></p>
+            <p><strong>Skills to Learn:</strong> <span id="learnText">Not provided</span></p>
+        </div>
+
+        <div class="portfolio-section">
+            <h3>Projects</h3>
+            <div class="projects-container" id="projectsContainer"></div>
+            <button class="add-btn" onclick="addProject()">➕ Add Project</button>
+        </div>
+
+        <div class="portfolio-section">
+            <h3>🏆 Sports Achievements</h3>
+            <div class="projects-container" id="sportsContainer"></div>
+            <button class="add-btn" onclick="addSport()">➕ Add Sports Achievement</button>
+        </div>
+
+        <div class="portfolio-section">
+            <h3>🎨 Arts Achievements</h3>
+            <div class="projects-container" id="artsContainer"></div>
+            <button class="add-btn" onclick="addArt()">➕ Add Arts Achievement</button>
+        </div>
+
+        <div class="portfolio-section">
+            <h3>👑 Positions in Forums/Teams</h3>
+            <div class="projects-container" id="positionsContainer"></div>
+            <button class="add-btn" onclick="addPosition()">➕ Add Position</button>
+        </div>
+
+        <div class="profile-actions">
+            <button class="edit-btn" onclick="editProfile()">✏️ Edit Profile</button>
+            <button class="delete-btn" onclick="deleteProfile()">🗑️ Delete Profile</button>
+        </div>
+
+        <div class="back-home">
+            <button class="home-btn" onclick="goHome()">🏠 Back to Home</button>
+        </div>
+    </div>
+
+    <script>
+      function loadProfile() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userEmail = urlParams.get("email");
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+    let user = students.find(student => student.email === userEmail);
+    
+    if (!user) {
+        alert("Profile not found!");
+        window.location.href = "index.html";
+        return;
+    }
+    
+    document.getElementById("profileName").textContent = user.name;
+    document.getElementById("emailText").textContent = user.email;
+    document.getElementById("dobText").textContent = user.dob;
+    document.getElementById("bioText").textContent = user.bio || "Not provided";
+    document.getElementById("teachText").textContent = user.skillsTeach || "Not provided";
+    document.getElementById("learnText").textContent = user.skillsLearn || "Not provided";
+
+    loadList(user.projects, "projectsContainer");
+    loadList(user.sports, "sportsContainer");
+    loadList(user.arts, "artsContainer");
+    loadList(user.positions, "positionsContainer");
+}
+
+
+function addItem(category, promptTitle, promptDesc, containerId) {
+    const title = prompt(promptTitle);
+    if (!title) return;
+    const description = prompt(promptDesc);
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const userEmail = urlParams.get("email");
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+    let userIndex = students.findIndex(student => student.email === userEmail);
+    
+    if (userIndex === -1) return;
+    
+    students[userIndex][category].push({ title, description });
+    localStorage.setItem("students", JSON.stringify(students));
+    loadList(students[userIndex][category], containerId);
+}
+function addProject() {
+    addItem("projects", "Enter Project Title:", "Enter Project Description:", "projectsContainer");
+}
+
+function addSport() {
+    addItem("sports", "Enter Sports Achievement:", "Enter Details:", "sportsContainer");
+}
+
+function addArt() {
+    addItem("arts", "Enter Arts Achievement:", "Enter Details:", "artsContainer");
+}
+
+function addPosition() {
+    addItem("positions", "Enter Position Name:", "Enter Forum/Team Details:", "positionsContainer");
+}
+
+function editProfile() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userEmail = urlParams.get("email");
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+    let userIndex = students.findIndex(student => student.email === userEmail);
+    
+    if (userIndex === -1) return;
+
+    let newName = prompt("Enter new name:", students[userIndex].name);
+    let newBio = prompt("Enter new bio:", students[userIndex].bio);
+    let newDOB = prompt("Enter new date of birth:", students[userIndex].dob);
+    let newTeach = prompt("Enter skills you can teach:", students[userIndex].skillsTeach);
+    let newLearn = prompt("Enter skills you want to learn:", students[userIndex].skillsLearn);
+    
+    students[userIndex].name = newName || students[userIndex].name;
+    students[userIndex].bio = newBio || students[userIndex].bio;
+    students[userIndex].dob = newDOB || students[userIndex].dob;
+    students[userIndex].skillsTeach = newTeach || students[userIndex].skillsTeach;
+    students[userIndex].skillsLearn = newLearn || students[userIndex].skillsLearn;
+
+    localStorage.setItem("students", JSON.stringify(students));
+    loadProfile();
+}
+
+
+function deleteProfile() {
+    if (!confirm("Are you sure you want to delete your profile?")) return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const userEmail = urlParams.get("email");
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+
+    students = students.filter(student => student.email !== userEmail);
+    localStorage.setItem("students", JSON.stringify(students));
+
+    alert("Profile deleted!");
+    window.location.href = "index.html";  // Redirect to home
+}
+
+function goHome() {
+    window.location.href = "index.html";  // Update this with your actual home page URL
+}
+
+function loadList(items, containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = "";
+    items.forEach(item => {
+        const div = document.createElement("div");
+        div.innerHTML = `<strong>${item.title}</strong>: ${item.description}`;
+        container.appendChild(div);
+    });
+}
+
+window.onload = loadProfile;
+
+    </script>
+</body> 
+</html>

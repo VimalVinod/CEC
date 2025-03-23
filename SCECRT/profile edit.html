@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            width: 50%;
+            margin: 40px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .save-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #218838;
+        }
+
+        .add-btn {
+            background: #007bff;
+            color: white;
+        }
+
+        .add-btn:hover {
+            background: #0056b3;
+        }
+
+        .achievement-list div {
+            background: #f9f9f9;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .remove-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .remove-btn:hover {
+            background: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Portfolio</h2>
+
+        <label>Bio:</label>
+        <textarea id="bio"></textarea>
+
+        <label>Skills You Can Teach:</label>
+        <input type="text" id="skills-teach">
+
+        <label>Skills You Want to Learn:</label>
+        <input type="text" id="skills-learn">
+
+        <h3>Projects</h3>
+        <div id="project-list" class="achievement-list"></div>
+        <input type="text" id="project-title" placeholder="Project Title">
+        <input type="text" id="project-desc" placeholder="Project Description">
+        <button class="add-btn" onclick="addProject()">Add Project</button>
+
+       <!-- <h3>Sports Achievements</h3>
+        <div id="sports-list" class="achievement-list"></div>
+        <input type="text" id="sports-achievement" placeholder="Achievement">
+        <button class="add-btn" onclick="addAchievement('sports')">Add</button>
+
+        <h3>Arts Achievements</h3>
+        <div id="arts-list" class="achievement-list"></div>
+        <input type="text" id="arts-achievement" placeholder="Achievement">
+        <button class="add-btn" onclick="addAchievement('arts')">Add</button>
+
+        <h3>Positions in Forums/CG Teams</h3>
+        <div id="positions-list" class="achievement-list"></div>
+        <input type="text" id="position-held" placeholder="Position & Forum Name">
+        <button class="add-btn" onclick="addAchievement('positions')">Add</button>-->
+
+        <button class="save-btn" onclick="saveProfile()">Save Portfolio</button>
+    </div>
+
+    <script>
+        function loadProfile() {
+            const profile = JSON.parse(localStorage.getItem("userProfileData")) || {};
+            document.getElementById("bio").value = profile.bio || "";
+            document.getElementById("skills-teach").value = profile.skillsTeach || "";
+            document.getElementById("skills-learn").value = profile.skillsLearn || "";
+
+            loadAchievements("projects", "project-list");
+            loadAchievements("sports", "sports-list");
+            loadAchievements("arts", "arts-list");
+            loadAchievements("positions", "positions-list");
+        }
+
+        function loadAchievements(type, containerId) {
+            const profile = JSON.parse(localStorage.getItem("userProfileData")) || {};
+            const achievements = profile[type] || [];
+            const container = document.getElementById(containerId);
+            container.innerHTML = "";
+
+            achievements.forEach((item, index) => {
+                const div = document.createElement("div");
+                div.innerHTML = `<span>${item}</span> <button class="remove-btn" onclick="removeAchievement('${type}', ${index})">❌</button>`;
+                container.appendChild(div);
+            });
+        }
+
+        function addProject() {
+            addAchievement("projects", "project-title", "project-desc");
+        }
+
+        function addAchievement(type, inputId, descId = null) {
+            const profile = JSON.parse(localStorage.getItem("userProfileData")) || {};
+            profile[type] = profile[type] || [];
+            let value;
+
+            if (descId) {
+                const title = document.getElementById(inputId).value.trim();
+                const desc = document.getElementById(descId).value.trim();
+                if (!title || !desc) return;
+                value = `${title}: ${desc}`;
+                document.getElementById(inputId).value = "";
+                document.getElementById(descId).value = "";
+            } else {
+                value = document.getElementById(inputId).value.trim();
+                if (!value) return;
+                document.getElementById(inputId).value = "";
+            }
+
+            profile[type].push(value);
+            localStorage.setItem("userProfileData", JSON.stringify(profile));
+            loadAchievements(type, `${type}-list`);
+        }
+
+        function removeAchievement(type, index) {
+            const profile = JSON.parse(localStorage.getItem("userProfileData")) || {};
+            profile[type].splice(index, 1);
+            localStorage.setItem("userProfileData", JSON.stringify(profile));
+            loadAchievements(type, `${type}-list`);
+        }
+
+        function saveProfile() {
+            const profile = {
+                bio: document.getElementById("bio").value,
+                skillsTeach: document.getElementById("skills-teach").value,
+                skillsLearn: document.getElementById("skills-learn").value,
+                projects: JSON.parse(localStorage.getItem("userProfileData"))?.projects || [],
+                sports: JSON.parse(localStorage.getItem("userProfileData"))?.sports || [],
+                arts: JSON.parse(localStorage.getItem("userProfileData"))?.arts || [],
+                positions: JSON.parse(localStorage.getItem("userProfileData"))?.positions || []
+            };
+
+            localStorage.setItem("userProfileData", JSON.stringify(profile));
+            alert("Portfolio saved!");
+            window.location.href = "profile.html";
+        }
+
+        window.onload = loadProfile;
+    </script>
+</body>
+</html>

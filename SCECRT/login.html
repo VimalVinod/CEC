@@ -1,0 +1,59 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Class Network</title>
+  <link rel="stylesheet" href="CSS/login.css">
+</head>
+<body>
+  <div class="login-page">
+    <header>
+      <h1>Welcome to <span class="highlight">S4C</span> - Login</h1>
+    </header>
+    
+    <main class="login-container">
+      <h2>Login to Your Account</h2>
+      <form class="login-form">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="login-btn">Login</button>
+        </div>
+        <p class="register-link">Don't have an account? <a href="register.html">Register here</a>.</p>
+        <p id="error-message" style="color: red; display: none;">Invalid email or password</p>
+      </form>
+    </main>
+  </div>
+
+  <script>
+    document.querySelector(".login-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      // Retrieve stored user data from localStorage
+      const storedUser = JSON.parse(localStorage.getItem("userProfile"));
+
+      if (storedUser && storedUser.email === email && storedUser.password === password) {
+        // Store login state
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("loggedInUser", JSON.stringify(storedUser));
+
+        // Redirect to profile page
+        window.location.href = "profile.html";
+      } else {
+        document.getElementById("error-message").style.display = "block";
+      }
+    });
+  </script>
+
+</body>
+</html>

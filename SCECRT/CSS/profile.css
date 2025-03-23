@@ -1,0 +1,194 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Header */
+header {
+    background: #1e1e2f;
+    color: white;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Container */
+.container {
+    width: 80%;
+    max-width: 700px;
+    background: #fff;
+    padding: 25px;
+    margin-top: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Profile Info */
+.profile-info {
+    text-align: center;
+    padding: 20px;
+}
+
+.profile-info img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ff6b81;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.profile-info img:hover {
+    transform: scale(1.1);
+}
+
+.profile-info h2 {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.profile-info p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Sports and Position Icons */
+.profile-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.profile-icons i {
+    font-size: 24px;
+    color: #007bff;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.profile-icons i:hover {
+    transform: scale(1.2);
+    color: #ff4757;
+}
+
+/* Portfolio Section */
+.portfolio-section {
+    text-align: left;
+    margin-top: 25px;
+}
+
+.portfolio-section h3 {
+    color: #007bff;
+    font-size: 20px;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 5px;
+}
+
+/* Project Cards */
+.projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.project {
+    background: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.project:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Buttons */
+.profile-actions {
+    margin-top: 25px;
+}
+
+.profile-actions button,
+.add-btn {
+    padding: 12px 18px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    margin: 8px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.add-btn {
+    background: #28a745;
+    color: white;
+    font-weight: bold;
+}
+
+.add-btn:hover {
+    background: #218838;
+    transform: scale(1.05);
+}
+
+.edit-btn {
+    background: #ffcc00;
+    color: black;
+    font-weight: bold;
+}
+
+.edit-btn:hover {
+    background: #e0a800;
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+    font-weight: bold;
+}
+
+.delete-btn:hover {
+    background: #c82333;
+    transform: scale(1.05);
+}
+
+/* Back to Home Button */
+.back-home {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.home-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    background: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.home-btn:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Awards</title>
+    <link rel="stylesheet" href="CSS/award.css">
+</head>
+<body>
+
+    <h1>🏆  Awards – Class Edition</h1>
+    <p>Nominate your classmates for each award. The person with the most nominations wins!</p>
+
+    <div class="award-container">
+        <div class="award-card">
+            <h2>👨‍💻 Programmer of the Class</h2>
+            <p class="winner">Winner: <span id="programmer-winner">Not decided yet</span></p>
+            <button onclick="nominate('programmer')">Nominate</button>
+        </div>
+        <div class="award-card">
+            <h2>🎭 Actor of the Class</h2>
+            <p class="winner">Winner: <span id="actor-winner">Not decided yet</span></p>
+            <button onclick="nominate('actor')">Nominate</button>
+        </div>
+        <div class="award-card">
+            <h2>🎤 Singer of the Class</h2>
+            <p class="winner">Winner: <span id="singer-winner">Not decided yet</span></p>
+            <button onclick="nominate('singer')">Nominate</button>
+        </div>
+        <div class="award-card">
+            <h2>🏅 All-Rounder of the Class</h2>
+            <p class="winner">Winner: <span id="allrounder-winner">Not decided yet</span></p>
+            <button onclick="nominate('allrounder')">Nominate</button>
+        </div>
+        <div class="award-card special">
+            <h2>🐓 Special Mention: "Kozhi" of the Class</h2>
+            <p class="winner">Winner: <span id="kozhi-winner">Not decided yet</span></p>
+            <button onclick="nominate('kozhi')">Nominate</button>
+        </div>
+        <div class="award-card">
+            <h2>🎨 Designer of the Class</h2>
+            <p class="winner">Winner: <span id="designer-winner">Not decided yet</span></p>
+            <button onclick="nominate('designer')">Nominate</button>
+        </div>
+        <div class="award-card">
+            <h2>📢 Speaker of the Class</h2>
+            <p class="winner">Winner: <span id="speaker-winner">Not decided yet</span></p>
+            <button onclick="nominate('speaker')">Nominate</button>
+        </div>
+    </div>
+
+    <script src="js/awards.js"></script>
+
+</body>
+</html>

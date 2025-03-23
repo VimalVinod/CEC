@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Class Network</title>
+  <link rel="stylesheet" href="CSS/register.css">
+</head>
+<body>
+  <header>
+    <h1><a href="index.html">Welcome to <span class="highlight">S4C</span></a> - Register</h1>
+  </header>
+  
+  <main class="register-container">
+    <h2>Create Your Account</h2>
+    <form class="register-form" id="register-form">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Create a password" required>
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="register-btn">Register</button>
+      </div>
+      <p class="login-link">Already have an account? <a href="login.html">Login here</a>.</p>
+    </form>
+  </main>
+
+  <script>
+   document.getElementById("register-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const dob = document.getElementById("dob").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+    
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+    
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+    
+    if (students.some(student => student.email === email)) {
+        alert("Email is already registered!");
+        return;
+    }
+    
+    const user = { name, email, dob, password, projects: [], sports: [], arts: [], positions: [] };
+    students.push(user);
+    localStorage.setItem("students", JSON.stringify(students));
+    
+    alert("Registration Successful!");
+    window.location.href = "profile.html?email=" + encodeURIComponent(email);
+});
+  </script>
+</body>
+</html>
